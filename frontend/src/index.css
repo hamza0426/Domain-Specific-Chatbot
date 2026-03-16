@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ─── Reset ──────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── CSS Variables ──────────────────────────────────────── */
+:root {
+  --bg:        #080A14;
+  --s1:        #0E1020;
+  --s2:        #141628;
+  --s3:        #1A1D35;
+  --border:    rgba(255, 255, 255, 0.07);
+  --accent:    #4F46E5;
+  --cyan:      #06B6D4;
+  --text:      #CDD0E8;       /* slightly brighter than before */
+  --text-strong: #E8EAF6;    /* headings / bold text */
+  --muted:     #6B6E8F;
+  --radius:    16px;
+  --font:      'Plus Jakarta Sans', sans-serif;
+  --mono:      'JetBrains Mono', monospace;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font);
+  border: none;
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ─── Shared: Ambient Orbs ───────────────────────────────── */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
+  animation: drift 14s ease-in-out infinite alternate;
+}
+
+.orb-1 {
+  width: 600px;
+  height: 600px;
+  background: #4F46E5;
+  top: -200px;
+  left: -200px;
+  animation-duration: 14s;
+}
+
+.orb-2 {
+  width: 500px;
+  height: 500px;
+  background: #06B6D4;
+  bottom: -150px;
+  right: -150px;
+  animation-duration: 10s;
+  animation-direction: alternate-reverse;
+}
+
+.orb-3 {
+  width: 300px;
+  height: 300px;
+  background: #8B5CF6;
+  top: 40%;
+  left: 50%;
+  animation-duration: 18s;
+}
+
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(40px, 30px) scale(1.05); }
+}
+
+/* ─── Shared: Gradient Text ──────────────────────────────── */
+.grad-text {
+  background: linear-gradient(135deg, #4F46E5, #06B6D4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Shared: Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}

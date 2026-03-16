@@ -1,0 +1,22 @@
+backend/chatbot_model
+
+# HuggingFace cache
+.cache/huggingface/
+
+# ─── Node / Frontend ────────────────────────────────────
+frontend/node_modules/
+node_modules/
+frontend/.pnp
+frontend/.pnp.js
+
+# React build output
+frontend/build/
+frontend/dist/
+
+
+# VS Code
+.vscode/
+*.code-workspace
+
+
+

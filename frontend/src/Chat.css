@@ -51,14 +51,6 @@
   flex: 1; 
 }
 
-.chat-hdr-center {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  /* flex: 1;
-  justify-content: center; */
-}
-
 .chat-hdr-center > div {
   display: flex;
   flex-direction: column;

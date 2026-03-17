@@ -7,7 +7,7 @@ backend/chatbot_model
 frontend/node_modules/
 node_modules/
 
-
+Chatbot_Backend/
 
 # VS Code
 .vscode/

@@ -23,7 +23,7 @@ CORS(app)
 print("🚀 Starting HamChat Backend...")
 print("📦 Loading T5 model...")
 
-MODEL_PATH = "./chatbot_model"  # ← Your saved model folder path
+MODEL_PATH = "Hamza0426/HamChat-t5"  # ← Your saved model folder path
 
 try:
     tokenizer = T5Tokenizer.from_pretrained(MODEL_PATH)

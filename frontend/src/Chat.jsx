@@ -101,8 +101,12 @@ function Message({ msg }) {
 }
 
 // ─── Chat Page ─────────────────────────────────────────────
-export default function Chat({ onBack, initialQuestion }) {
-  const [messages, setMessages] = useState([WELCOME_MSG]);
+export default function Chat({
+  onBack,
+  initialQuestion,
+  messages,
+  setMessages,
+}) {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [activeDomain, setDomain] = useState("healthcare");
@@ -156,11 +160,14 @@ export default function Chat({ onBack, initialQuestion }) {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query }),
-      });
+      const res = await fetch(
+        "https://hamza0426-chatbot-backend.hf.space/chat",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query }),
+        },
+      );
       const data = await res.json();
 
       setMessages((prev) => [

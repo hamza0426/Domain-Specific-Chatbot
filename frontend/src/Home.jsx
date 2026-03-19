@@ -1,8 +1,3 @@
-// ═══════════════════════════════════════════════════════════
-//  Home.jsx  —  Landing Page
-//  HamChat · Muhammad Hamza Owais
-// ═══════════════════════════════════════════════════════════
-
 import "./Home.css";
 
 // ─── Data ─────────────────────────────────────────────────
@@ -85,7 +80,6 @@ export default function Home({ onLaunch, onAsk }) {
       {/* ── Hero ── */}
       <section className="hero">
         <span className="hero-badge">🎓 Fine-tuned T5 Transformer</span>
-
         <h1 className="hero-h1">
           Domain-Specific
           <br />
@@ -115,7 +109,7 @@ export default function Home({ onLaunch, onAsk }) {
           </button>
           <a
             className="btn-ghost"
-            href="https://github.com/hamza0426"
+            href="https://github.com/hamza0426/Domain-Specific-Chatbot"
             target="_blank"
             rel="noreferrer"
           >
@@ -123,7 +117,6 @@ export default function Home({ onLaunch, onAsk }) {
           </a>
         </div>
 
-        {/* Stats */}
         <div className="stats-row">
           {STATS.map((s, i) => (
             <div key={i} className="stat-card">
@@ -191,7 +184,6 @@ export default function Home({ onLaunch, onAsk }) {
       <section className="try-sec">
         <h2 className="sec-title">Try Sample Questions</h2>
         <p className="sec-p">Click any question to instantly ask HamChat</p>
-
         <div className="try-grid">
           {["healthcare", "finance"].map((domain) => (
             <div key={domain} className="try-col">

@@ -1,9 +1,3 @@
-// ═══════════════════════════════════════════════════════════
-//  App.jsx  —  Root Router
-//  Switches between Home (landing) and Chat pages
-//  HamChat · Muhammad Hamza Owais
-// ═══════════════════════════════════════════════════════════
-
 import { useState, useRef } from "react";
 import Home from "./Home";
 import Chat from "./Chat";
@@ -24,7 +18,6 @@ const WELCOME_MSG = {
 };
 
 export default function App() {
-  // 'home' | 'chat'
   const [page, setPage] = useState("home");
   const [messages, setMessages] = useState([WELCOME_MSG]);
 

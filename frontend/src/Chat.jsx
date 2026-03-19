@@ -1,13 +1,7 @@
-// ═══════════════════════════════════════════════════════════
-//  Chat.jsx  —  Chat Interface Page
-//  HamChat · Muhammad Hamza Owais
-// ═══════════════════════════════════════════════════════════
-
 import { useState, useRef, useEffect } from "react";
 import "./Chat.css";
 import { HamLogo, SUGGESTIONS } from "./Home";
 
-// ─── Helpers ──────────────────────────────────────────────
 function getTime() {
   return new Date().toLocaleTimeString([], {
     hour: "2-digit",
@@ -18,7 +12,7 @@ function getTime() {
 const WELCOME_MSG = {
   role: "bot",
   content:
-    "Welcome to HamChat! 👋 I'm a fine-tuned T5 AI assistant specialized in Healthcare and Finance. Ask me a question or pick one below!",
+    "Welcome to HamChat! 👋 I'm a fine-tuned T5 AI assistant specialized in Healthcare and Finance Domain. Ask me a question or pick one below!",
   time: getTime(),
   source: "custom",
 };
@@ -125,7 +119,6 @@ export default function Chat({
     inputRef.current?.focus();
     if (initialQuestion && !didInit.current) {
       didInit.current = true;
-      // Small delay so the welcome message renders first
       setTimeout(() => sendMessage(initialQuestion), 350);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -136,7 +129,7 @@ export default function Chat({
       {
         ...WELCOME_MSG,
         content:
-          "Chat cleared! 🔄 Ask me anything about Healthcare or Finance.",
+          "Chat cleared! 🔄 Ask me anything about Healthcare or Finance Domain.",
         time: getTime(),
       },
     ]);
@@ -148,7 +141,6 @@ export default function Chat({
   async function sendMessage(text) {
     const query = (text || input).trim();
     if (!query || loading) return;
-
     setInput("");
 
     // Append user msg + typing indicator
@@ -184,8 +176,7 @@ export default function Chat({
         ...prev.slice(0, -1),
         {
           role: "bot",
-          content:
-            "⚠️ Backend not reachable. Please run: python app.py in your backend folder.",
+          content: "⚠️ Unknown error accured, Backend not reachable.",
           time: getTime(),
           source: "error",
         },
@@ -228,10 +219,7 @@ export default function Chat({
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
-            {/* </div> */}
 
-            {/* Center: Logo + title */}
-            {/* <div className="chat-hdr-center"> */}
             <HamLogo size={30} />
             <div>
               <span className="hdr-title">HamChat</span>

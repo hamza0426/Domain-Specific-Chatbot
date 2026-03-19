@@ -1,14 +1,3 @@
-"""
-╔══════════════════════════════════════════════════════════╗
-║         HamChat - Domain AI Chatbot Backend              ║
-║         Fine-tuned T5 | Healthcare & Finance             ║
-║         Author: Muhammad Hamza Owais                     ║
-╚══════════════════════════════════════════════════════════╝
-
-Run: python app.py
-Requirements: pip install flask flask-cors transformers torch sentencepiece
-"""
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from transformers import T5Tokenizer, T5ForConditionalGeneration
@@ -23,7 +12,7 @@ CORS(app)
 print("🚀 Starting HamChat Backend...")
 print("📦 Loading T5 model...")
 
-MODEL_PATH = "Hamza0426/HamChat-t5"  # ← Your saved model folder path
+MODEL_PATH = "Hamza0426/HamChat-t5"  # saved model folder path
 
 try:
     tokenizer = T5Tokenizer.from_pretrained(MODEL_PATH)
@@ -38,7 +27,6 @@ except Exception as e:
     model = None
     device = "cpu"
 
-
 # ─── Text Cleaning (same as training) ────────────────────────
 def clean_text(text):
     text = re.sub(r'\r\n', ' ', text)
@@ -47,20 +35,17 @@ def clean_text(text):
     text = text.strip().lower()
     return text
 
-
 # ─── Custom Identity & Fallback Rules ─────────────────────────
-# These are matched BEFORE the model runs — override with custom answers
-
 CUSTOM_RULES = {
     # Identity / Creator questions
     "who are you": "I'm HamChat, an AI assistant built and fine-tuned by Muhammad Hamza Owais. I specialize in Healthcare and Finance queries.",
-    "who made you": "I was created and fine-tuned by Muhammad Hamza Owais as part of a Generative AI project. I'm powered by a T5 model trained on domain-specific data.",
+    "who made you": "I was created and fine-tuned by Muhammad Hamza Owais as a personal project for learning in Generative AI domain. I'm powered by a T5 model trained on domain-specific data.",
     "who created you": "Muhammad Hamza Owais created and fine-tuned me! I'm a T5-based chatbot specialized in Healthcare and Finance domains.",
     "who built you": "I was built by Muhammad Hamza Owais using the T5 transformer model, fine-tuned on a custom Healthcare and Finance dataset.",
     "what is your name": "My name is HamChat! I'm a domain-specific AI assistant fine-tuned by Muhammad Hamza Owais.",
     "what are you": "I'm HamChat — a fine-tuned T5 language model specialized in answering Healthcare and Finance questions. I was built by Muhammad Hamza Owais.",
     "tell me about yourself": "I'm HamChat, an AI chatbot fine-tuned by Muhammad Hamza Owais using the T5 transformer. I'm trained on a custom dataset covering Healthcare and Finance domains to give accurate, domain-specific answers.",
-    "hamza": "Yes, Muhammad Hamza Owais is my creator! He fine-tuned me as part of his Generative AI project.",
+    "hamza": "Yes, Muhammad Hamza Owais is my creator! He fine-tuned me as a personal project for learning in Generative AI domain.",
     "your creator": "Muhammad Hamza Owais is my creator. He fine-tuned me using Hugging Face Transformers on a custom domain-specific dataset.",
 
     # Greetings
@@ -106,7 +91,6 @@ FALLBACK_RESPONSES = [
 def get_fallback():
     return random.choice(FALLBACK_RESPONSES)
 
-
 # ─── Custom Rule Matcher ──────────────────────────────────────
 def match_custom_rule(query_clean):
     for keyword, answer in CUSTOM_RULES.items():
@@ -114,14 +98,12 @@ def match_custom_rule(query_clean):
             return answer
     return None
 
-
 # ─── Domain Keyword Check ─────────────────────────────────────
 def is_in_domain(query_clean):
     for keyword in DOMAIN_KEYWORDS:
         if keyword in query_clean:
             return True
     return False
-
 
 # ─── Main Inference ───────────────────────────────────────────
 def run_model(query_clean):
@@ -140,9 +122,7 @@ def run_model(query_clean):
             num_beams=5,
             early_stopping=True
         )
-
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
-
 
 # ─── Chat Endpoint ────────────────────────────────────────────
 @app.route("/chat", methods=["POST"])
@@ -152,16 +132,14 @@ def chat():
             "response": "⚠️ Model not loaded. Please check the server. Make sure chatbot_model folder is present.",
             "source": "error"
         }), 500
-
     data = request.get_json()
     query = data.get("query", "").strip()
 
     if not query:
         return jsonify({"response": "Please provide a question.", "source": "validation"}), 400
-
     query_clean = clean_text(query)
 
-    # 1️⃣ Check custom rules first (identity, greetings, etc.)
+    # 1️⃣ Check custom rules first
     custom_answer = match_custom_rule(query_clean)
     if custom_answer:
         return jsonify({"response": custom_answer, "source": "custom"})
@@ -173,7 +151,6 @@ def chat():
     # 3️⃣ Run the T5 model
     try:
         response = run_model(query_clean)
-
         # Safety: if model returns empty or repeats the query, use fallback
         if not response or response.strip() == query_clean.strip():
             return jsonify({"response": get_fallback(), "source": "fallback"})
@@ -186,7 +163,6 @@ def chat():
             "source": "error"
         }), 500
 
-
 # ─── Health Check ─────────────────────────────────────────────
 @app.route("/health", methods=["GET"])
 def health():
@@ -197,7 +173,6 @@ def health():
         "model_loaded": model is not None,
         "device": str(device)
     })
-
 
 # ─── Suggested Questions Endpoint ────────────────────────────
 @app.route("/suggestions", methods=["GET"])
@@ -217,7 +192,6 @@ def suggestions():
             "Can I make changes to my loan repayment schedule?",
         ]
     })
-
 
 if __name__ == "__main__":
     print("🌐 HamChat API running at: http://localhost:5000")
